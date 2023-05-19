@@ -1,5 +1,6 @@
 var form = document.getElementById('addForm');
 var itemList = document.getElementById('items');
+var item = document.getElementsByClassName('list-group-item');
 var filter = document.getElementById('filter');
 
 // Form submit event
@@ -9,12 +10,21 @@ itemList.addEventListener('click', removeItem);
 // Filter event
 filter.addEventListener('keyup', filterItems);
 
+// Adding edit button to all list item
+for (let i = 0; i < itemList.length; i++) {
+    const editBtn = document.createElement('button');
+    editBtn.className = 'btn btn-danger btn-sm float-right editBtn';
+    editBtn.appendChild(document.createElement('EDIT'))
+    itemList[i].appendChild(editBtn);  
+}
+
 // Add item
 function addItem(e){
   e.preventDefault();
 
   // Get input value
   var newItem = document.getElementById('item').value;
+  var description = document.getElementById('description').value;
 
   // Create new li element
   var li = document.createElement('li');
@@ -22,20 +32,26 @@ function addItem(e){
   li.className = 'list-group-item';
   // Add text node with input value
   li.appendChild(document.createTextNode(newItem));
+  li.appendChild(document.createTextNode(" " + description));
 
   // Create del button element
   var deleteBtn = document.createElement('button');
+  var editBtn = document.createElement('button');
 
   // Add classes to del button
   deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+  editBtn.className = 'btn btn-danger btn-sm float-right editBtn';
 
   // Append text node
   deleteBtn.appendChild(document.createTextNode('X'));
+  editBtn.appendChild(document.createTextNode('EDIT'));
 
   // Append button to li
   li.appendChild(deleteBtn);
+  li.appendChild(editBtn);
 
   // Append li to list
+  itemList.appendChild(li);
   itemList.appendChild(li);
 }
 
